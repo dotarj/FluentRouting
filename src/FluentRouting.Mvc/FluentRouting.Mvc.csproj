@@ -74,14 +74,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FluentRouteGroupBuilderExtensions.cs" />
-    <Compile Include="FluentRouteBuilderExtensions.cs" />
-    <Compile Include="FluentRouteGroup.cs" />
-    <Compile Include="IConstraintBuilderExtensions.cs" />
-    <Compile Include="FluentRouteGroupConstraintBuilder.cs" />
     <Compile Include="FluentRouteBuilder.cs" />
     <Compile Include="FluentRouteGroupBuilder.cs" />
-    <Compile Include="FluentRouteMapBuilder.cs" />
+    <Compile Include="FluentRouteGroupConstraintBuilder.cs" />
+    <Compile Include="FluentRouteTemplateBuilder.cs" />
+    <Compile Include="IConstraintBuilderExtensions.cs" />
     <Compile Include="HostConstraint.cs" />
     <Compile Include="IConstraintBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

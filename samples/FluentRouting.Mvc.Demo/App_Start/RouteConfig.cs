@@ -13,24 +13,19 @@ namespace FluentRouting.Mvc.Demo
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.ForGroup(group => group
-                .Map<HomeController>(controller => controller.Index(), map => map
-                    .ToRoute(""))
-                .Map<HomeController>(controller => controller.MultipleRoutesTest(), map => map
-                    .ToRoute("multipleroutestest1")
-                    .ToRoute("multipleroutestest2"))
-                .Map<HomeController>(controller => controller.InlineConstraintTest1(0), map => map
-                    .ToRoute("inlineconstrainttest/{id:range(0,100)}"))
-                .Map<HomeController>(controller => controller.InlineConstraintTest2(0), map => map
-                    .ToRoute("inlineconstrainttest/{id:range(101,200)}"))
-                .Map<ContactController>(controller => controller.Index(), map => map
-                    .ToRoute("contact"))
-                .Map<ContactController>(controller => controller.Post(null), map => map
-                    .ToRoute("contact", route => route
-                        .WithConstraints(constraints => constraints
-                            .HttpMethods(HttpMethod.Post))))
-                .WithConstraints(constraints => constraints
-                    .HttpMethod(HttpMethod.Get)));
+            routes.ForController<HomeController>()
+                .CreateRoute("").ToMethod(controller => controller.Index())
+                .CreateRoute("multipleroutestest1").ToMethod(controller => controller.MultipleRoutesTest())
+                .CreateRoute("multipleroutestest2").ToMethod(controller => controller.MultipleRoutesTest())
+                .CreateRoute("inlineconstrainttest/{id:range(0,100)}").ToMethod(controller => controller.InlineConstraintTest1(0))
+                .CreateRoute("inlineconstrainttest/{id:range(101,200)}").ToMethod(controller => controller.InlineConstraintTest2(0))
+                .WithGroupConstraints().HttpMethod(HttpMethod.Get);
+
+            routes.ForController<ContactController>()
+                .CreateRoute("contact").ToMethod(controller => controller.Index())
+                .CreateRoute("contact").ToMethod(controller => controller.Post(null))
+                    .WithConstraints().HttpMethod(HttpMethod.Post)
+                .WithGroupConstraints().HttpMethod(HttpMethod.Get);
         }
     }
 }

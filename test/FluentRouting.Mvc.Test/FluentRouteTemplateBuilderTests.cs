@@ -8,7 +8,7 @@ using System.Web.Routing;
 namespace FluentRouting.Mvc.Test
 {
     [TestClass]
-    public abstract class FluentRouteGroupBuilderExtensionsTests
+    public abstract class FluentRouteTemplateBuilderTests
     {
         protected RouteCollection routes;
 
@@ -19,16 +19,15 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheMapMethod : FluentRouteGroupBuilderExtensionsTests
+        public class TheToMethodMethod : FluentRouteTemplateBuilderTests
         {
             [TestMethod]
             public void ShouldMapMultipleMethods()
             {
                 // Act
-                routes.Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute("a"))
-                    .Map<TestController>(controller => controller.Index(1), map => map
-                        .ToRoute("b"));
+                routes.ForController<TestController>()
+                    .CreateRoute("a").ToMethod(controller => controller.Index())
+                    .CreateRoute("b").ToMethod(controller => controller.Index(1));
 
                 // Assert
                 var count = routes

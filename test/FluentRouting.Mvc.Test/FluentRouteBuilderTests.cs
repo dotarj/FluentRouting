@@ -7,7 +7,7 @@ using System.Web.Routing;
 namespace FluentRouting.Mvc.Test
 {
     [TestClass]
-    public abstract class FluentRouteBuilderExtensionsTests
+    public abstract class FluentRouteBuilderTests
     {
         protected RouteCollection routes;
 
@@ -18,7 +18,7 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheWithActionNameMethod : FluentRouteBuilderExtensionsTests
+        public class TheWithActionNameMethod : FluentRouteBuilderTests
         {
             [TestMethod]
             public void ShouldModifyTheActionName()
@@ -27,9 +27,8 @@ namespace FluentRouting.Mvc.Test
                 var actionName = "testAction";
 
                 // Act
-                routes.Map<TestController>(controller => controller.Index(), map => map
-                    .ToRoute("", route => route
-                        .WithActionName(actionName)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithActionName(actionName);
 
                 // Assert
                 var fluentRoute = routes

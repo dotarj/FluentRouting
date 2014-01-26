@@ -8,7 +8,7 @@ using System.Web.Routing;
 namespace FluentRouting.Mvc.Test
 {
     [TestClass]
-    public abstract class FluentRouteGroupConstraintBuilderExtensionsTests
+    public abstract class FluentRouteGroupConstraintBuilderTests
     {
         protected RouteCollection routes;
 
@@ -19,17 +19,15 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheCustomMethod : FluentRouteConstraintBuilderExtensionsTests
+        public class TheCustomMethod : FluentRouteGroupConstraintBuilderTests
         {
             [TestMethod]
             public void ShouldAddAContraint()
             {
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute(""))
-                    .WithConstraints(constraints => constraints
-                        .Custom("host", new HostConstraint("localhost"))));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithGroupConstraints()
+                        .Custom("host", new HostConstraint("localhost"));
 
                 // Assert
                 var fluentRoute = routes
@@ -54,13 +52,11 @@ namespace FluentRouting.Mvc.Test
                 var routeGroupHost = "localhost";
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute("", route => route
-                            .WithConstraints(constraints => constraints
-                                .Custom("host", new HostConstraint(routeHost)))))
-                    .WithConstraints(constraints => constraints
-                        .Custom("host", new HostConstraint(routeGroupHost))));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithConstraints()
+                        .Custom("host", new HostConstraint(routeHost))
+                    .WithGroupConstraints()
+                        .Custom("host", new HostConstraint(routeGroupHost));
 
                 // Assert
                 var fluentRoute = routes
@@ -80,7 +76,7 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheHostMethod : FluentRouteConstraintBuilderExtensionsTests
+        public class TheHostMethod : FluentRouteGroupConstraintBuilderTests
         {
             [TestMethod]
             public void ShouldAddAHostContraintForLocalhost()
@@ -89,11 +85,9 @@ namespace FluentRouting.Mvc.Test
                 var host = "localhost";
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute(""))
-                    .WithConstraints(constraints => constraints
-                        .Host(host)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithGroupConstraints()
+                        .Host(host);
 
                 // Assert
                 var fluentRoute = routes
@@ -119,13 +113,11 @@ namespace FluentRouting.Mvc.Test
                 var routeGroupHost = "localhost";
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute("", route => route
-                            .WithConstraints(constraints => constraints
-                                .Host(routeHost))))
-                    .WithConstraints(constraints => constraints
-                        .Host(routeGroupHost)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithConstraints()
+                        .Host(routeHost)
+                    .WithGroupConstraints()
+                        .Host(routeGroupHost);
 
                 // Assert
                 var fluentRoute = routes
@@ -145,7 +137,7 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheHostsMethod : FluentRouteConstraintBuilderExtensionsTests
+        public class TheHostsMethod : FluentRouteGroupConstraintBuilderTests
         {
             [TestMethod]
             public void ShouldAddAHostContraintForLocalhostAndRemotehost()
@@ -154,11 +146,9 @@ namespace FluentRouting.Mvc.Test
                 var host = new[] { "localhost", "remotehost" };
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute(""))
-                    .WithConstraints(constraints => constraints
-                        .Hosts(host)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithGroupConstraints()
+                        .Hosts(host);
 
                 // Assert
                 var fluentRoute = routes
@@ -184,13 +174,11 @@ namespace FluentRouting.Mvc.Test
                 var routeGroupHost = new[] { "localhost" };
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(1), map => map
-                        .ToRoute("", route => route
-                            .WithConstraints(constraints => constraints
-                                .Hosts(routeHost))))
-                    .WithConstraints(constraints => constraints
-                        .Hosts(routeGroupHost)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index(1))
+                    .WithConstraints()
+                        .Hosts(routeHost)
+                    .WithGroupConstraints()
+                        .Hosts(routeGroupHost);
 
                 // Assert
                 var fluentRoute = routes
@@ -210,7 +198,7 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheHttpMethodMethod : FluentRouteConstraintBuilderExtensionsTests
+        public class TheHttpMethodMethod : FluentRouteGroupConstraintBuilderTests
         {
             [TestMethod]
             public void ShouldAddAHttpMethodContraintForHttpMethodGet()
@@ -219,11 +207,9 @@ namespace FluentRouting.Mvc.Test
                 var httpMethod = HttpMethod.Get;
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(new TestModel()), map => map
-                        .ToRoute(""))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethod(httpMethod)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index(new TestModel()))
+                    .WithGroupConstraints()
+                        .HttpMethod(httpMethod);
 
                 // Assert
                 var fluentRoute = routes
@@ -248,11 +234,9 @@ namespace FluentRouting.Mvc.Test
                 var httpMethod = "GET";
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute(""))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethod(httpMethod)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithGroupConstraints()
+                        .HttpMethod(httpMethod);
 
                 // Assert
                 var fluentRoute = routes
@@ -278,13 +262,11 @@ namespace FluentRouting.Mvc.Test
                 var routeGroupHttpMethod = "POST";
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute("", route => route
-                            .WithConstraints(constraints => constraints
-                                .HttpMethod(routeHttpMethod))))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethod(routeGroupHttpMethod)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithConstraints()
+                        .HttpMethod(routeHttpMethod)
+                    .WithGroupConstraints()
+                        .HttpMethod(routeGroupHttpMethod);
 
                 // Assert
                 var fluentRoute = routes
@@ -310,13 +292,11 @@ namespace FluentRouting.Mvc.Test
                 var routeGroupHttpMethod = HttpMethod.Post;
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute("", route => route
-                            .WithConstraints(constraints => constraints
-                                .HttpMethod(routeHttpMethod))))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethod(routeGroupHttpMethod)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithConstraints()
+                        .HttpMethod(routeHttpMethod)
+                    .WithGroupConstraints()
+                        .HttpMethod(routeGroupHttpMethod);
 
                 // Assert
                 var fluentRoute = routes
@@ -336,7 +316,7 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheHttpMethodsMethod : FluentRouteConstraintBuilderExtensionsTests
+        public class TheHttpMethodsMethod : FluentRouteGroupConstraintBuilderTests
         {
             [TestMethod]
             public void ShouldAddAHttpMethodContraintForHttpMethodGetAndHttpMethodPost()
@@ -345,11 +325,9 @@ namespace FluentRouting.Mvc.Test
                 var httpMethods = new[] { HttpMethod.Get, HttpMethod.Post };
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute(""))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethods(httpMethods)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithGroupConstraints()
+                        .HttpMethods(httpMethods);
 
                 // Assert
                 var fluentRoute = routes
@@ -374,11 +352,9 @@ namespace FluentRouting.Mvc.Test
                 var httpMethods = new[] { "GET", "POST" };
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute(""))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethods(httpMethods)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithGroupConstraints()
+                        .HttpMethods(httpMethods);
 
                 // Assert
                 var fluentRoute = routes
@@ -404,13 +380,11 @@ namespace FluentRouting.Mvc.Test
                 var routeGroupHttpMethods = new[] { "GET" };
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute("", route => route
-                            .WithConstraints(constraints => constraints
-                                .HttpMethods(routeHttpMethods))))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethods(routeGroupHttpMethods)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithConstraints()
+                        .HttpMethods(routeHttpMethods)
+                    .WithGroupConstraints()
+                        .HttpMethods(routeGroupHttpMethods);
 
                 // Assert
                 var fluentRoute = routes
@@ -436,13 +410,11 @@ namespace FluentRouting.Mvc.Test
                 var routeGroupHttpMethods = new[] { HttpMethod.Get };
 
                 // Act
-                routes.ForGroup(group => group
-                    .Map<TestController>(controller => controller.Index(), map => map
-                        .ToRoute("", route => route
-                            .WithConstraints(constraints => constraints
-                                .HttpMethods(routeHttpMethods))))
-                    .WithConstraints(constraints => constraints
-                        .HttpMethods(routeGroupHttpMethods)));
+                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                    .WithConstraints()
+                        .HttpMethods(routeHttpMethods)
+                    .WithGroupConstraints()
+                        .HttpMethods(routeGroupHttpMethods);
 
                 // Assert
                 var fluentRoute = routes

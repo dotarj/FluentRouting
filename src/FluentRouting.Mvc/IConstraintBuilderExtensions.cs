@@ -15,10 +15,11 @@ namespace FluentRouting.Mvc
         /// <summary>
         /// Adds a <see cref="HttpMethodConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
         /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
         /// <param name="allowedMethod">The HTTP verb that is valid for the routes.</param>
         /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
-        public static T HttpMethod<T>(this T constraintBuilder, HttpMethod allowedMethod) where T : IConstraintBuilder
+        public static TConstraintBuilder HttpMethod<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, HttpMethod allowedMethod) where TConstraintBuilder : IConstraintBuilder
         {
             if (constraintBuilder == null)
             {
@@ -31,10 +32,11 @@ namespace FluentRouting.Mvc
         /// <summary>
         /// Adds a <see cref="HttpMethodConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
         /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
         /// <param name="allowedMethods">The HTTP verbs that are valid for the routes.</param>
         /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
-        public static T HttpMethods<T>(this T constraintBuilder, params HttpMethod[] allowedMethods) where T : IConstraintBuilder
+        public static TConstraintBuilder HttpMethods<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, params HttpMethod[] allowedMethods) where TConstraintBuilder : IConstraintBuilder
         {
             if (constraintBuilder == null)
             {
@@ -58,10 +60,11 @@ namespace FluentRouting.Mvc
         /// <summary>
         /// Adds a <see cref="HttpMethodConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
         /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
         /// <param name="allowedMethod">The HTTP verb that is valid for the routes.</param>
         /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
-        public static T HttpMethod<T>(this T constraintBuilder, string allowedMethod) where T : IConstraintBuilder
+        public static TConstraintBuilder HttpMethod<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, string allowedMethod) where TConstraintBuilder : IConstraintBuilder
         {
             if (constraintBuilder == null)
             {
@@ -74,10 +77,11 @@ namespace FluentRouting.Mvc
         /// <summary>
         /// Adds a <see cref="HttpMethodConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
         /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
         /// <param name="allowedMethods">The HTTP verbs that are valid for the routes.</param>
         /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
-        public static T HttpMethods<T>(this T constraintBuilder, params string[] allowedMethods) where T : IConstraintBuilder
+        public static TConstraintBuilder HttpMethods<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, params string[] allowedMethods) where TConstraintBuilder : IConstraintBuilder
         {
             if (constraintBuilder == null)
             {
@@ -97,10 +101,11 @@ namespace FluentRouting.Mvc
         /// <summary>
         /// Adds a <see cref="HostConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
         /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
         /// <param name="allowedHost">The host that is valid for the routes.</param>
         /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
-        public static T Host<T>(this T constraintBuilder, string allowedHost) where T : IConstraintBuilder
+        public static TConstraintBuilder Host<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, string allowedHost) where TConstraintBuilder : IConstraintBuilder
         {
             if (constraintBuilder == null)
             {
@@ -113,10 +118,11 @@ namespace FluentRouting.Mvc
         /// <summary>
         /// Adds a <see cref="HostConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
         /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
         /// <param name="allowedHosts">The hosts that are valid for the routes.</param>
         /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
-        public static T Hosts<T>(this T constraintBuilder, params string[] allowedHosts) where T : IConstraintBuilder
+        public static TConstraintBuilder Hosts<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, params string[] allowedHosts) where TConstraintBuilder : IConstraintBuilder
         {
             if (constraintBuilder == null)
             {
@@ -136,11 +142,12 @@ namespace FluentRouting.Mvc
         /// <summary>
         /// Adds a <see cref="IRouteConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
         /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
         /// <param name="name">The name of the constraint.</param>
         /// <param name="constraint">An instance of an <see cref="IRouteConstraint"/>.</param>
         /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
-        public static T Custom<T>(this T constraintBuilder, string name, IRouteConstraint constraint) where T : IConstraintBuilder
+        public static TConstraintBuilder Custom<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, string name, IRouteConstraint constraint) where TConstraintBuilder : IConstraintBuilder
         {
             if (constraintBuilder == null)
             {

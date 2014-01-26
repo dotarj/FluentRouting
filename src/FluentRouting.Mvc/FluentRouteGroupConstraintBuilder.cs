@@ -1,29 +1,31 @@
 ﻿// Copyright (c) Arjen Post. See License.txt and Notice.txt in the project root for license information.
 
 using System;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace FluentRouting.Mvc
 {
     /// <summary>
-    /// Provides methods for defining the constraints of a <see cref="FluentRouteGroup"/>.
+    /// Provides methods for defining the constraints of a <see cref="FluentRouteGroupBuilder{TController}"/>.
     /// </summary>
-    public class FluentRouteGroupConstraintBuilder : IConstraintBuilder
+    /// <typeparam name="TController">The type of the controller.</typeparam>
+    public class FluentRouteGroupConstraintBuilder<TController> : IConstraintBuilder where TController : Controller
     {
-        internal FluentRouteGroupConstraintBuilder(FluentRouteGroup routeGroup)
+        internal FluentRouteGroupConstraintBuilder(FluentRouteGroupBuilder<TController> groupBuilder)
         {
-            if (routeGroup == null)
+            if (groupBuilder == null)
             {
                 throw new ArgumentNullException("routeGroup");
             }
 
-            RouteGroup = routeGroup;
+            GroupBuilder = groupBuilder;
         }
 
         /// <summary>
-        /// Gets the <see cref="FluentRouteGroup"/> which is configured.
+        /// Gets the <see cref="FluentRouteGroupBuilder{TController}"/> which is configured.
         /// </summary>
-        public FluentRouteGroup RouteGroup { get; private set; }
+        public FluentRouteGroupBuilder<TController> GroupBuilder { get; private set; }
 
         /// <summary>
         /// Adds a <see cref="IRouteConstraint"/> to the <see cref="IConstraintBuilder" />.
@@ -46,7 +48,7 @@ namespace FluentRouting.Mvc
                 throw new ArgumentNullException("constraint");
             }
 
-            foreach (var route in RouteGroup)
+            foreach (var route in GroupBuilder.Routes)
             {
                 if (!route.Constraints.ContainsKey(name))
                 {
