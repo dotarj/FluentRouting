@@ -52,7 +52,7 @@ namespace FluentRouting.Mvc
                 .Select(allowedMethod => allowedMethod.ToString())
                 .ToArray();
 
-            constraintBuilder.AddConstraint("httpMethod", new HttpMethodConstraint(allowedMethodsStrings));
+            constraintBuilder.AddConstraint("httpMethod", () => new HttpMethodConstraint(allowedMethodsStrings));
 
             return constraintBuilder;
         }
@@ -93,7 +93,7 @@ namespace FluentRouting.Mvc
                 throw new ArgumentNullException("allowedMethods");
             }
 
-            constraintBuilder.AddConstraint("httpMethod", new HttpMethodConstraint(allowedMethods));
+            constraintBuilder.AddConstraint("httpMethod", () => new HttpMethodConstraint(allowedMethods));
 
             return constraintBuilder;
         }
@@ -134,7 +134,7 @@ namespace FluentRouting.Mvc
                 throw new ArgumentNullException("allowedHosts");
             }
 
-            constraintBuilder.AddConstraint("host", new HostConstraint(allowedHosts));
+            constraintBuilder.AddConstraint("host", () => new HostConstraint(allowedHosts));
 
             return constraintBuilder;
         }
@@ -159,7 +159,32 @@ namespace FluentRouting.Mvc
                 throw new ArgumentNullException("constraint");
             }
 
-            constraintBuilder.AddConstraint(name, constraint);
+            constraintBuilder.AddConstraint(name, () => constraint);
+
+            return constraintBuilder;
+        }
+
+        /// <summary>
+        /// Adds a <see cref="IRouteConstraint"/> to the <see cref="IConstraintBuilder" />.
+        /// </summary>
+        /// <typeparam name="TConstraintBuilder">The type of the constraint builder.</typeparam>
+        /// <param name="constraintBuilder">The <see cref="IConstraintBuilder"/> to perform configuration against.</param>
+        /// <param name="name">The name of the constraint.</param>
+        /// <param name="constraintProvider">A function which returns an instance of an <see cref="IRouteConstraint"/>.</param>
+        /// <returns>The same <see cref="IConstraintBuilder"/> instance so that multiple calls can be chained.</returns>
+        public static TConstraintBuilder Custom<TConstraintBuilder>(this TConstraintBuilder constraintBuilder, string name, Func<IRouteConstraint> constraintProvider) where TConstraintBuilder : IConstraintBuilder
+        {
+            if (constraintBuilder == null)
+            {
+                throw new ArgumentNullException("constraintBuilder");
+            }
+
+            if (constraintProvider == null)
+            {
+                throw new ArgumentNullException("constraintProvider");
+            }
+
+            constraintBuilder.AddConstraint(name, constraintProvider);
 
             return constraintBuilder;
         }

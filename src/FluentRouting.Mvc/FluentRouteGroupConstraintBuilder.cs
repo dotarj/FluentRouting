@@ -31,27 +31,29 @@ namespace FluentRouting.Mvc
         /// Adds a <see cref="IRouteConstraint"/> to the <see cref="IConstraintBuilder" />.
         /// </summary>
         /// <param name="name">The name of the constraint.</param>
-        /// <param name="constraint">An instance of an <see cref="IRouteConstraint"/>.</param>
+        /// <param name="constraintProvider">A function which returns an instance of an <see cref="IRouteConstraint"/>.</param>
         /// <remarks>
         /// The <see cref="IRouteConstraint"/> will only be added if the route constraints do not already contain a constraint 
         /// with the same name.
         /// </remarks>
-        public void AddConstraint(string name, IRouteConstraint constraint)
+        public void AddConstraint(string name, Func<IRouteConstraint> constraintProvider)
         {
             if (name == null)
             {
                 throw new ArgumentNullException("name");
             }
-
-            if (constraint == null)
+            
+            if (constraintProvider == null)
             {
-                throw new ArgumentNullException("constraint");
+                throw new ArgumentNullException("constraintProvider");
             }
 
             foreach (var route in GroupBuilder.Routes)
             {
                 if (!route.Constraints.ContainsKey(name))
                 {
+                    var constraint = constraintProvider();
+
                     route.Constraints.Add(name, constraint);
                 }
             }

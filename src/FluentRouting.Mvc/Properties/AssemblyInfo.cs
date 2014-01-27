@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FluentRouting.Mvc")]
-[assembly: AssemblyDescription("ASP.NET MVC Fluent Routing is a thin wrapper around the ASP.NET MVC attribute routing engine. With ASP.NET MVC Fluent Routing you can define your routes using a fluent interface, but with the full power of the attribute routing engine (inline route constraints, optional URI parameters and default values).")]
+[assembly: AssemblyDescription("ASP.NET MVC Fluent Routing is a thin wrapper around the ASP.NET MVC attribute routing engine. With Fluent Routing you can define your routes using a fluent interface, but with the full power of the attribute routing engine (inline route constraints, optional URI parameters and default values).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Arjen Post")]
 [assembly: AssemblyProduct("FluentRouting.Mvc")]
