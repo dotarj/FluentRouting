@@ -15,6 +15,6 @@ namespace FluentRouting.Mvc
         /// </summary>
         /// <param name="name">The name of the constraint.</param>
         /// <param name="constraintProvider">A function which returns an instance of an <see cref="IRouteConstraint"/>.</param>
-        void AddConstraint(string name, Func<IRouteConstraint> constraint);
+        void AddConstraint(string name, Func<IRouteConstraint> constraintProvider);
     }
 }

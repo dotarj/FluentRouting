@@ -18,7 +18,7 @@ namespace FluentRouting.Mvc
         /// <typeparam name="TController">The type of the controller.</typeparam>
         /// <param name="routeCollection">A collection of routes for the application.</param>
         /// <returns>The <see cref="FluentRouteGroupBuilder{TController}"/> to perform configuration against.</returns>
-        public static FluentRouteGroupBuilder<TController> ForController<TController>(this RouteCollection routeCollection) where TController : Controller
+        public static FluentRouteGroupBuilder<TController> For<TController>(this RouteCollection routeCollection) where TController : Controller
         {
             if (routeCollection == null)
             {

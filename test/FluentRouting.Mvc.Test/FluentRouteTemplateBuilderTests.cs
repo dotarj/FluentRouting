@@ -19,15 +19,15 @@ namespace FluentRouting.Mvc.Test
         }
 
         [TestClass]
-        public class TheToMethodMethod : FluentRouteTemplateBuilderTests
+        public class TheToMethod : FluentRouteTemplateBuilderTests
         {
             [TestMethod]
             public void ShouldMapMultipleMethods()
             {
                 // Act
-                routes.ForController<TestController>()
-                    .CreateRoute("a").ToMethod(controller => controller.Index())
-                    .CreateRoute("b").ToMethod(controller => controller.Index(1));
+                routes.For<TestController>()
+                    .CreateRoute("a").To(controller => controller.Index())
+                    .CreateRoute("b").To(controller => controller.Index(1));
 
                 // Assert
                 var count = routes

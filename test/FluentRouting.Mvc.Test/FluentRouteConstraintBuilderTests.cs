@@ -25,7 +25,7 @@ namespace FluentRouting.Mvc.Test
             public void ShouldAddAContraint()
             {
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithConstraints()
                         .Custom("host", new HostConstraint("domain-a.com"));
 
@@ -55,7 +55,7 @@ namespace FluentRouting.Mvc.Test
                 var host = "localhost";
 
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithConstraints()
                         .Host(host);
 
@@ -82,7 +82,7 @@ namespace FluentRouting.Mvc.Test
                 var host = new[] { "localhost", "remotehost" };
 
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithConstraints()
                         .Hosts(host);
 
@@ -113,7 +113,7 @@ namespace FluentRouting.Mvc.Test
                 var httpMethod = HttpMethod.Get;
 
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithConstraints()
                         .HttpMethod(httpMethod);
 
@@ -140,7 +140,7 @@ namespace FluentRouting.Mvc.Test
                 var httpMethods = new[] { HttpMethod.Get, HttpMethod.Post };
 
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithConstraints()
                         .HttpMethods(httpMethods);
 
@@ -167,7 +167,7 @@ namespace FluentRouting.Mvc.Test
                 var httpMethod = "GET";
 
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithConstraints()
                         .HttpMethod(httpMethod);
 
@@ -194,7 +194,7 @@ namespace FluentRouting.Mvc.Test
                 var httpMethods = new[] { "GET", "POST" };
 
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithConstraints()
                         .HttpMethods(httpMethods);
 

@@ -46,7 +46,7 @@ namespace FluentRouting.Mvc
         /// </summary>
         /// <param name="action">A lambda expression representing the method to be mapped.</param>
         /// <returns>The <see cref="FluentRouteBuilder{TController}"/> to perform configuration against.</returns>
-        public FluentRouteBuilder<TController> ToMethod(Expression<Action<TController>> action)
+        public FluentRouteBuilder<TController> To(Expression<Action<TController>> action)
         {
             if (action == null)
             {

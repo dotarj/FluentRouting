@@ -27,7 +27,7 @@ namespace FluentRouting.Mvc.Test
                 var actionName = "testAction";
 
                 // Act
-                routes.ForController<TestController>().CreateRoute("").ToMethod(controller => controller.Index())
+                routes.For<TestController>().CreateRoute("").To(controller => controller.Index())
                     .WithActionName(actionName);
 
                 // Assert
