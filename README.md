@@ -18,4 +18,4 @@ Install-Package FluentRouting.Mvc
 
 ## How do I get started?
 
-Check out this [blog post](http://arjenpost.nl/blog/asp-net-mvc-fluentrouting/) for an introduction to ASP.NET MVC Fluent Routing.
+Check out [this blog post](http://arjenpost.nl/blog/asp-net-mvc-fluentrouting/) for an introduction to ASP.NET MVC Fluent Routing.
